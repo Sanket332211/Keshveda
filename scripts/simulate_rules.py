@@ -177,3 +177,4 @@ print(f"Baseline RTOs: {total_baseline_rto} ({total_baseline_rto/len(sep_df):.1%
 print(f"Total Avoided RTOs: {total_avoided_rto:.1f}")
 print(f"Estimated Gross Logistics Savings: Rs {total_savings:,.2f}")
 print(f"Estimated Lost Margin from Drop-offs/Cancellations: Rs {lost_margin_cancel + (lost_gen_confirm * 649 * MARGIN_RATE):,.2f}")
+

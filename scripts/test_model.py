@@ -61,3 +61,4 @@ rf.fit(X, y)
 feat_imp = pd.Series(rf.feature_importances_, index=features).sort_values(ascending=False)
 print("\nFeature Importances:")
 print(feat_imp)
+

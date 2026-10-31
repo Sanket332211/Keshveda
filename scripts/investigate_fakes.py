@@ -30,3 +30,4 @@ print("\nOrders with invalid phone (< 10 digits or not starting with 6-9):")
 invalid_phones = valid_df[~valid_df['phone'].astype(str).str.match(r'^[6-9]\d{9}$')]
 print("Count:", len(invalid_phones))
 print(invalid_phones['status_clean'].value_counts())
+

@@ -220,3 +220,4 @@ class FlowManager:
             "event": event_type
         })
         return session
+

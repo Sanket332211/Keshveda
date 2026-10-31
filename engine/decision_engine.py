@@ -229,3 +229,4 @@ class DecisionEngine:
 
         simulation = self.simulator.simulate(annotated_df)
         return annotated_df, simulation
+

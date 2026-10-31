@@ -213,3 +213,4 @@ class SimulationEngine:
                 "net_rupee_gain": round(net_rupee_impact, 2)
             }
         }
+

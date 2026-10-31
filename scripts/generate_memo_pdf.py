@@ -242,3 +242,4 @@ def generate_pdf(output_filename="BUSINESS_MEMO.pdf"):
 
 if __name__ == "__main__":
     generate_pdf()
+

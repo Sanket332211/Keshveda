@@ -68,3 +68,4 @@ This document provides a chronological record of the key architectural, financia
   * Gives the customer time to review their order confirmation email/SMS.
   * Catches impulse shoppers while intent is still warm.
   * Provides enough runway for 12-hour reminder and 24-hour auto-cancellation before the warehouse packing shift ends.
+

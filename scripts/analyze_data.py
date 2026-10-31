@@ -113,3 +113,4 @@ print(b_up.groupby(['state', 'courier'])['status_clean'].agg(
     total='count',
     rto_rate=lambda s: (s == 'RTO').mean()
 ))
+

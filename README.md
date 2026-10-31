@@ -173,3 +173,4 @@ Tested against 334 historical orders from September 2026:
     ├── test_model.py                   # 5-fold CV Gradient Boosting baseline
     └── simulate_rules.py               # Historical backtesting simulation
 ```
+

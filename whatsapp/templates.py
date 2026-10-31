@@ -126,3 +126,4 @@ def render_template(template_key: str, lang: str = "hinglish", **kwargs) -> str:
     tpl_dict = TEMPLATES.get(template_key, {})
     template_str = tpl_dict.get(lang, tpl_dict.get("english", ""))
     return template_str.format(**kwargs)
+

@@ -60,3 +60,4 @@ num_cols = ['order_value', 'num_items', 'customer_prior_orders', 'customer_prior
 for c in num_cols:
     corr = (df['status_clean'] == 'RTO').corr(df[c])
     print(f"Correlation of {c} with RTO: {corr:.4f}")
+
