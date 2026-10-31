@@ -1,5 +1,11 @@
 /**
  * Keshveda Founder Dashboard & WhatsApp Simulator Client
+ * Themed with Custom Palette:
+ * - #A0D2EB (Sky Blue)
+ * - #E5EAF5 (Light Lavender Tint)
+ * - #D0BDF4 (Pastel Lavender)
+ * - #8458B3 (Royal Purple)
+ * - #494D5F (Slate Charcoal)
  */
 
 let currentFilter = 'last_month';
@@ -20,9 +26,9 @@ function setTimeFilter(filter) {
   ['yesterday', 'last_month', 'all'].forEach(f => {
     const btn = document.getElementById(`btn-${f}`);
     if (f === filter) {
-      btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-white text-slate-900 shadow-sm";
+      btn.className = "px-3 py-1.5 text-xs font-bold rounded-md transition-all bg-white text-brand-purple shadow-sm";
     } else {
-      btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900";
+      btn.className = "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-brand-charcoal hover:text-brand-purple";
     }
   });
 
@@ -82,10 +88,10 @@ function updateKPIs(data) {
   const netEl = document.getElementById('kpi-net-gain');
   if (netGain >= 0) {
     netEl.innerText = `+₹${netGain.toLocaleString()}`;
-    netEl.className = "text-3xl font-extrabold text-emerald-400 mt-1";
+    netEl.className = "text-3xl font-extrabold text-brand-sky mt-1";
   } else {
     netEl.innerText = `-₹${Math.abs(netGain).toLocaleString()}`;
-    netEl.className = "text-3xl font-extrabold text-rose-400 mt-1";
+    netEl.className = "text-3xl font-extrabold text-brand-lavender mt-1";
   }
   document.getElementById('kpi-rto-reduction').innerText = `${metrics.rto_reduction_pct || 0}%`;
 }
@@ -95,7 +101,7 @@ function renderCharts(data) {
   const fin = data.simulation?.financial_impact_rupees || {};
   const states = data.state_breakdown || [];
 
-  // 1. Buckets Chart
+  // 1. Buckets Chart using custom palette
   const ctxBuckets = document.getElementById('bucketsChart').getContext('2d');
   if (bucketsChartInstance) bucketsChartInstance.destroy();
   bucketsChartInstance = new Chart(ctxBuckets, {
@@ -109,7 +115,7 @@ function renderCharts(data) {
           buckets['Nudge to prepaid'] || 0,
           buckets['Hold / cancel'] || 0
         ],
-        backgroundColor: ['#10b981', '#f59e0b', '#8b5cf6', '#f43f5e'],
+        backgroundColor: ['#A0D2EB', '#D0BDF4', '#8458B3', '#494D5F'],
         borderWidth: 2,
         borderColor: '#ffffff'
       }]
@@ -118,7 +124,14 @@ function renderCharts(data) {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+        legend: { 
+          position: 'bottom', 
+          labels: { 
+            boxWidth: 10, 
+            font: { size: 10, family: 'sans-serif' },
+            color: '#494D5F'
+          } 
+        }
       },
       cutout: '68%'
     }
@@ -134,7 +147,7 @@ function renderCharts(data) {
       datasets: [{
         label: 'Historical RTO %',
         data: states.map(s => s.rto_rate),
-        backgroundColor: states.map(s => s.rto_rate >= 40 ? '#f43f5e' : (s.rto_rate >= 25 ? '#f59e0b' : '#10b981')),
+        backgroundColor: states.map(s => s.rto_rate >= 40 ? '#8458B3' : (s.rto_rate >= 25 ? '#D0BDF4' : '#A0D2EB')),
         borderRadius: 4
       }]
     },
@@ -143,8 +156,16 @@ function renderCharts(data) {
       maintainAspectRatio: false,
       indexAxis: 'y',
       scales: {
-        x: { beginAtZero: true, max: 70, ticks: { callback: v => `${v}%`, font: { size: 9 } } },
-        y: { ticks: { font: { size: 10 } } }
+        x: { 
+          beginAtZero: true, 
+          max: 70, 
+          ticks: { callback: v => `${v}%`, font: { size: 9 }, color: '#494D5F' },
+          grid: { color: '#E5EAF5' }
+        },
+        y: { 
+          ticks: { font: { size: 10 }, color: '#494D5F' },
+          grid: { display: false }
+        }
       },
       plugins: {
         legend: { display: false }
@@ -166,7 +187,7 @@ function renderCharts(data) {
           -(fin.prepaid_discounts_incurred || 0),
           fin.net_rupee_gain || 0
         ],
-        backgroundColor: ['#10b981', '#f43f5e', '#a855f7', '#059669'],
+        backgroundColor: ['#8458B3', '#494D5F', '#D0BDF4', '#A0D2EB'],
         borderRadius: 4
       }]
     },
@@ -174,8 +195,14 @@ function renderCharts(data) {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        y: { ticks: { callback: v => `₹${v.toLocaleString()}`, font: { size: 9 } } },
-        x: { ticks: { font: { size: 9 } } }
+        y: { 
+          ticks: { callback: v => `₹${v.toLocaleString()}`, font: { size: 9 }, color: '#494D5F' },
+          grid: { color: '#E5EAF5' }
+        },
+        x: { 
+          ticks: { font: { size: 9 }, color: '#494D5F' },
+          grid: { display: false }
+        }
       },
       plugins: {
         legend: { display: false }
@@ -209,7 +236,7 @@ function filterOrdersTable() {
 
   filtered.slice(0, 100).forEach(order => {
     const tr = document.createElement('tr');
-    tr.className = "hover:bg-slate-50 transition cursor-pointer";
+    tr.className = "hover:bg-brand-light/50 transition cursor-pointer";
     tr.onclick = (e) => {
       if (!e.target.closest('button')) {
         startWhatsAppSimulation(order.order_id);
@@ -218,40 +245,40 @@ function filterOrdersTable() {
 
     let actionBadge = '';
     if (order.action === 'Ship as-is') {
-      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Ship As-Is</span>';
+      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-sky/40 text-brand-charcoal border border-brand-sky">Ship As-Is</span>';
     } else if (order.action === 'Ship after confirmation') {
-      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">Confirm First</span>';
+      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-lavender/50 text-brand-purple border border-brand-lavender">Confirm First</span>';
     } else if (order.action === 'Nudge to prepaid') {
-      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800">Nudge Prepaid</span>';
+      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-purple text-white">Nudge Prepaid</span>';
     } else {
-      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">Hold / Cancel</span>';
+      actionBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-brand-charcoal text-white">Hold / Cancel</span>';
     }
 
     let riskBadge = '';
     if (order.risk_score >= 70) {
-      riskBadge = `<span class="font-bold text-rose-600">${order.risk_score}</span>/100`;
+      riskBadge = `<span class="font-bold text-brand-charcoal">${order.risk_score}</span>/100`;
     } else if (order.risk_score >= 40) {
-      riskBadge = `<span class="font-bold text-amber-600">${order.risk_score}</span>/100`;
+      riskBadge = `<span class="font-bold text-brand-purple">${order.risk_score}</span>/100`;
     } else {
-      riskBadge = `<span class="font-bold text-emerald-600">${order.risk_score}</span>/100`;
+      riskBadge = `<span class="font-bold text-brand-charcoal/70">${order.risk_score}</span>/100`;
     }
 
     tr.innerHTML = `
-      <td class="p-3 font-semibold text-slate-800">
+      <td class="p-3 font-semibold text-brand-charcoal">
         <div>${order.order_id}</div>
-        <div class="text-[10px] text-slate-400 font-normal">${order.order_datetime?.slice(0, 10) || ''}</div>
+        <div class="text-[10px] text-brand-charcoal/50 font-normal">${order.order_datetime?.slice(0, 10) || ''}</div>
       </td>
       <td class="p-3">
-        <div class="font-medium text-slate-900">${order.customer_name} · <span class="text-slate-400 font-normal">${order.phone}</span></div>
-        <div class="text-[11px] text-slate-500 truncate max-w-xs" title="${order.address}, ${order.city}">${order.address}, ${order.city}</div>
-        <div class="text-[10px] text-slate-400 italic mt-0.5">${order.reason}</div>
+        <div class="font-medium text-brand-charcoal">${order.customer_name} · <span class="text-brand-charcoal/50 font-normal">${order.phone}</span></div>
+        <div class="text-[11px] text-brand-charcoal/70 truncate max-w-xs" title="${order.address}, ${order.city}">${order.address}, ${order.city}</div>
+        <div class="text-[10px] text-brand-charcoal/50 italic mt-0.5">${order.reason}</div>
       </td>
-      <td class="p-3 font-bold text-slate-800">₹${order.order_value}</td>
+      <td class="p-3 font-bold text-brand-charcoal">₹${order.order_value}</td>
       <td class="p-3">${actionBadge}</td>
       <td class="p-3 text-[11px]">${riskBadge}</td>
       <td class="p-3 text-right">
-        <button onclick="startWhatsAppSimulation('${order.order_id}')" class="px-2 py-1 bg-whatsapp-green text-white rounded text-[10px] font-semibold hover:bg-emerald-700 transition">
-          <i class="fa-brands fa-whatsapp mr-1"></i> Sim
+        <button onclick="startWhatsAppSimulation('${order.order_id}')" class="px-2.5 py-1 bg-brand-purple text-white rounded text-[10px] font-semibold hover:bg-brand-charcoal transition shadow-2xs">
+          <i class="fa-brands fa-whatsapp mr-1 text-brand-sky"></i> Sim
         </button>
       </td>
     `;
@@ -291,20 +318,20 @@ function renderChatMessages(session) {
     if (isBot) {
       bubble.className = "flex justify-start";
       bubble.innerHTML = `
-        <div class="bg-whatsapp-bubble-in text-slate-800 max-w-[85%] rounded-lg p-2.5 shadow-sm text-xs border border-slate-200">
-          <div class="text-[10px] font-bold text-emerald-800 mb-0.5">Keshveda Official</div>
+        <div class="bg-white text-brand-charcoal max-w-[85%] rounded-lg p-2.5 shadow-sm text-xs border border-brand-lavender/60">
+          <div class="text-[10px] font-bold text-brand-purple mb-0.5">Keshveda Official</div>
           <div class="whitespace-pre-line leading-relaxed">${escapeHtml(msg.text)}</div>
-          <div class="text-[9px] text-slate-400 text-right mt-1">${msg.timestamp || ''}</div>
+          <div class="text-[9px] text-brand-charcoal/50 text-right mt-1">${msg.timestamp || ''}</div>
         </div>
       `;
     } else {
       bubble.className = "flex justify-end";
       bubble.innerHTML = `
-        <div class="bg-whatsapp-bubble-out text-slate-900 max-w-[80%] rounded-lg p-2.5 shadow-sm text-xs border border-emerald-200">
+        <div class="bg-brand-light text-brand-charcoal max-w-[80%] rounded-lg p-2.5 shadow-sm text-xs border border-brand-sky/80">
           <div class="whitespace-pre-line leading-relaxed font-medium">${escapeHtml(msg.text)}</div>
-          <div class="text-[9px] text-emerald-700 text-right mt-1 flex items-center justify-end space-x-1">
+          <div class="text-[9px] text-brand-purple text-right mt-1 flex items-center justify-end space-x-1">
             <span>${msg.timestamp || ''}</span>
-            <i class="fa-solid fa-check-double text-[10px] text-emerald-600"></i>
+            <i class="fa-solid fa-check-double text-[10px] text-brand-purple"></i>
           </div>
         </div>
       `;
@@ -357,11 +384,11 @@ async function triggerSimTimer(eventType) {
 function setSimulatorLang(lang) {
   currentSimLang = lang;
   if (lang === 'hinglish') {
-    document.getElementById('sim-lang-hinglish').className = "px-2 py-0.5 rounded bg-white text-emerald-800 font-bold text-[10px]";
-    document.getElementById('sim-lang-english').className = "px-2 py-0.5 rounded bg-emerald-700 text-emerald-100 font-medium text-[10px]";
+    document.getElementById('sim-lang-hinglish').className = "px-2 py-0.5 rounded bg-white text-brand-purple font-bold text-[10px] shadow-sm";
+    document.getElementById('sim-lang-english').className = "px-2 py-0.5 rounded bg-brand-charcoal text-brand-light font-medium text-[10px]";
   } else {
-    document.getElementById('sim-lang-english').className = "px-2 py-0.5 rounded bg-white text-emerald-800 font-bold text-[10px]";
-    document.getElementById('sim-lang-hinglish').className = "px-2 py-0.5 rounded bg-emerald-700 text-emerald-100 font-medium text-[10px]";
+    document.getElementById('sim-lang-english').className = "px-2 py-0.5 rounded bg-white text-brand-purple font-bold text-[10px] shadow-sm";
+    document.getElementById('sim-lang-hinglish').className = "px-2 py-0.5 rounded bg-brand-charcoal text-brand-light font-medium text-[10px]";
   }
   if (currentSimOrder) {
     startWhatsAppSimulation(currentSimOrder);
