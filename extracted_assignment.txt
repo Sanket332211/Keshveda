@@ -1,0 +1,94 @@
+=== PAGE 1 ===
+Associate Software Engineer – Take-Home
+Assignment
+Oct 29, 2026 · ​@Malhar
+How this works
+AI tools are allowed, and we encourage them, use whatever you like. We hire people
+who get a lot out of AI.
+The business problem
+We run a D2C haircare brand that sells on our own website (Shopify). About 55% of our
+orders are Cash on Delivery (COD).
+The problem: around 28% of COD orders are refused at the door or never delivered. This
+is called RTO (Return to Origin). For every RTO we lose:
+Forward shipping: ₹65
+Return shipping: ₹65
+Packaging + handling: ₹25
+Around 8% of returned products come back damaged and can't be resold (average
+product cost ₹180)
+Prepaid orders have an RTO rate of only about 4%.
+We ship about 3,000 orders a month. Average order value is ₹649. Our gross margin on a
+delivered order is about 62%.
+We want an AI-powered system that looks at every COD order before it is shipped and
+decides what to do with it.
+What two of our leaders are saying
+The two people you'd work with disagree. Read both carefully.
+Head of Operations:
+"RTO is killing us. I want any risky COD order cancelled automatically. If a pincode has
+bad history, just stop COD there. I'd rather lose a few sales than keep burning money
+on returns."
+AI Automation Engineer – Take-Home Assignment
+Page 1 of 3
+
+=== PAGE 2 ===
+Head of Marketing:
+"We spend ₹300+ to acquire each new customer through Meta ads. If we cancel their
+first order, we've wasted that money and they'll never come back. Most first-time
+buyers choose COD because they don't trust us yet. Please don't kill growth to save
+shipping costs."
+You don't have to pick a side. But your solution has to deal with both concerns, and you
+must explain your reasoning in money (₹), not opinions.
+What you need to build
+Part 1 — The decision engine (core)
+Using the dataset we share ( orders_sample.csv , about 2,000 past COD orders with
+whether they were delivered or returned), build a system that takes a new COD order and
+outputs one of these actions:
+1. Ship as-is
+2. Ship after confirmation (customer must confirm on WhatsApp first)
+3. Nudge to prepaid (offer a small discount to pay online)
+4. Hold / cancel
+Requirements:
+Use an LLM where it actually helps (for example: judging whether an address is
+complete and real, spotting fake names like "asdf" or "test", reading Hinglish
+addresses). Do not use an LLM for things simple code or maths can do better. Tell us
+where you drew that line and why.
+Every decision must come with a short, plain-English reason that an operations person
+can understand.
+The thresholds (when to cancel vs. confirm vs. nudge) must be easy for a non-technical
+person to change, without touching code.
+Part 2 — The WhatsApp confirmation flow
+Design (and build a working mock of) the message flow for "Ship after confirmation" and
+"Nudge to prepaid":
+What message goes out, in what language, and when
+What happens if the customer replies "yes", "no", something random, or doesn't reply
+at all in 24 hours
+AI Automation Engineer – Take-Home Assignment
+Page 2 of 3
+
+=== PAGE 3 ===
+How much discount you'd offer for prepaid, and why that number (show the maths)
+You don't need a real WhatsApp account. A mock API or a simple chat simulator is fine.
+Part 3 — A simple dashboard
+One screen our founder can look at every morning. It should answer:
+How many orders were in each of the 4 buckets yesterday
+Estimated ₹ saved from avoided RTOs
+Estimated ₹ lost from cancelled orders that might have been genuine
+Net ₹ impact
+Part 4 — The business memo (most important part)
+A 1–2 page memo written to the founder. Not a technical document. It should cover:
+1. What you found in the data that surprised you (at least 3 real findings, with numbers)
+2. Your recommended rules, and what they would have done to last month's orders
+3. How you balanced Operations vs. Marketing, with the ₹ trade-off
+4. What could go wrong with your system and how we'd notice
+5. What you'd build next if you had 2 more weeks
+What to submit
+1. GitHub repo (public or give us access) with a README that lets us run it in under 10
+minutes
+2. The business memo (PDF or Google Doc)
+3. Decision log — a simple running list of the important choices you made, what
+alternatives you considered, and why you picked what you did. Bullet points are fine.
+This matters more than polish.
+4. AI usage log — which AI tools you used, for what, and 2–3 examples where the AI gave
+you something wrong or weak and how you caught and fixed i
+AI Automation Engineer – Take-Home Assignment
+Page 3 of 3
+

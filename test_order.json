@@ -1,0 +1,13 @@
+{
+  "order_id": "TEST_001",
+  "customer_name": "asdf",
+  "phone": "9895118261",
+  "address": ".",
+  "city": "Patna",
+  "state": "Bihar",
+  "pincode": 800001,
+  "order_value": 898,
+  "customer_prior_orders": 0,
+  "customer_prior_rto": 0,
+  "items": "Rice Water Shampoo Bar"
+}

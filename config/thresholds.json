@@ -1,0 +1,36 @@
+{
+  "financial_assumptions": {
+    "forward_shipping_cost": 65.0,
+    "return_shipping_cost": 65.0,
+    "packaging_handling_cost": 25.0,
+    "damage_probability": 0.08,
+    "average_product_cost": 180.0,
+    "average_order_value": 649.0,
+    "gross_margin_rate": 0.62,
+    "customer_acquisition_cost": 300.0,
+    "prepaid_discount_amount": 50.0,
+    "prepaid_rto_rate": 0.04
+  },
+  "operational_thresholds": {
+    "cancel_min_prior_rto": 2,
+    "nudge_high_risk_state_min_order_value": 800,
+    "nudge_general_min_order_value": 1500,
+    "confirm_short_address_length": 25,
+    "high_risk_states": [
+      "Bihar",
+      "Uttar Pradesh",
+      "Madhya Pradesh"
+    ],
+    "high_rto_couriers": [
+      "Xpressbees",
+      "Ecom Express"
+    ],
+    "auto_cancel_unresponsive_hours": 24,
+    "require_confirmation_for_first_time_high_risk": true
+  },
+  "whatsapp_funnel_assumptions": {
+    "genuine_customer_confirmation_rate": 0.85,
+    "rto_intent_confirmation_rate": 0.30,
+    "prepaid_nudge_conversion_rate": 0.25
+  }
+}

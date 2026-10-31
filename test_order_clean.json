@@ -1,0 +1,13 @@
+{
+  "order_id": "TEST_004",
+  "customer_name": "Rohan Singh",
+  "phone": "9812345678",
+  "address": "Flat 302, Palm Heights, Sector 14",
+  "city": "Mumbai",
+  "state": "Maharashtra",
+  "pincode": 400001,
+  "order_value": 649,
+  "customer_prior_orders": 2,
+  "customer_prior_rto": 0,
+  "items": "Satin Bonnet"
+}

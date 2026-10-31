@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keshveda | AI COD Decision Engine & Founder Dashboard</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .bg-whatsapp-dark { background-color: #0b141a; }
+    .bg-whatsapp-chat { background-color: #efeae2; }
+    .bg-whatsapp-green { background-color: #00a884; }
+    .bg-whatsapp-bubble-out { background-color: #d9fdd3; }
+    .bg-whatsapp-bubble-in { background-color: #ffffff; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen">
+
+  <!-- Top Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md font-bold text-xl">
+          K
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-slate-900 tracking-tight flex items-center">
+            Keshveda <span class="ml-2 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">COD Decision Engine</span>
+          </h1>
+          <p class="text-xs text-slate-500">Shopify COD Risk Protection & WhatsApp Interception Funnel</p>
+        </div>
+      </div>
+
+      <!-- Controls & Filter -->
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center bg-slate-100 rounded-lg p-1 border border-slate-200">
+          <button id="btn-yesterday" onclick="setTimeFilter('yesterday')" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900">Yesterday</button>
+          <button id="btn-last_month" onclick="setTimeFilter('last_month')" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-white text-slate-900 shadow-sm">Last Month (Sep 2026)</button>
+          <button id="btn-all" onclick="setTimeFilter('all')" class="px-3 py-1.5 text-xs font-medium rounded-md transition-all text-slate-600 hover:text-slate-900">All 2,018 Orders</button>
+        </div>
+
+        <button onclick="toggleConfigModal()" class="px-3 py-1.5 text-xs font-medium bg-slate-800 text-white rounded-lg hover:bg-slate-700 transition flex items-center space-x-1.5 shadow-sm">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Configure Rules</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Executive Morning Banner -->
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-6 text-white shadow-lg border border-slate-700 relative overflow-hidden">
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-medium mb-2 border border-emerald-500/30">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Founder Morning Briefing · <span id="current-filter-label">September 2026</span></span>
+          </div>
+          <h2 class="text-2xl font-bold tracking-tight">RTO Risk Interception & Net Rupee Impact</h2>
+          <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+            Balancing Operations (avoiding ₹169.40 RTO shipping loss) with Marketing (protecting ₹402 gross margin and ₹300 Meta ad CAC).
+          </p>
+        </div>
+
+        <!-- Net Financial Callout -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/15 text-right flex-shrink-0">
+          <div class="text-xs uppercase tracking-wider text-slate-300 font-semibold">Net Bottom-Line Impact</div>
+          <div class="text-3xl font-extrabold text-emerald-400 mt-1" id="kpi-net-gain">₹0</div>
+          <div class="text-xs text-slate-300 mt-0.5 flex items-center justify-end space-x-1">
+            <i class="fa-solid fa-arrow-trend-up text-emerald-400"></i>
+            <span id="kpi-rto-reduction">0%</span> <span>RTO reduction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Primary Morning KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1: Bucket Breakdown -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between text-slate-500 text-xs font-semibold uppercase tracking-wider">
+          <span>Order Actions</span>
+          <i class="fa-solid fa-boxes-stacked text-indigo-500 text-base"></i>
+        </div>
+        <div class="mt-3 flex items-baseline justify-between">
+          <span class="text-2xl font-bold text-slate-900" id="kpi-total-orders">0</span>
+          <span class="text-xs text-slate-500">Evaluated Orders</span>
+        </div>
+        <div class="mt-3 grid grid-cols-2 gap-2 text-xs pt-3 border-t border-slate-100">
+          <div><span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-1"></span>Ship As-Is: <strong id="kpi-ship-as-is">0</strong></div>
+          <div><span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-1"></span>Confirm: <strong id="kpi-confirm">0</strong></div>
+          <div><span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-1"></span>Nudge: <strong id="kpi-nudge">0</strong></div>
+          <div><span class="inline-block w-2 h-2 rounded-full bg-rose-500 mr-1"></span>Cancel/Hold: <strong id="kpi-cancel">0</strong></div>
+        </div>
+      </div>
+
+      <!-- Card 2: ₹ Saved from Avoided RTOs -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between text-slate-500 text-xs font-semibold uppercase tracking-wider">
+          <span>Logistics Cash Saved</span>
+          <i class="fa-solid fa-shield-halved text-emerald-500 text-base"></i>
+        </div>
+        <div class="mt-3">
+          <div class="text-2xl font-bold text-emerald-600" id="kpi-savings">₹0</div>
+          <div class="text-xs text-slate-500 mt-1">
+            From <strong id="kpi-avoided-count" class="text-slate-800">0</strong> avoided RTOs (at ₹169.40/return)
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-emerald-700 bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-100 flex items-center justify-between">
+          <span>Projected RTO:</span>
+          <strong id="kpi-new-rto-rate">0%</strong> (was <span id="kpi-base-rto-rate">0%</span>)
+        </div>
+      </div>
+
+      <!-- Card 3: ₹ Lost from False Cancellations -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between text-slate-500 text-xs font-semibold uppercase tracking-wider">
+          <span>False Cancellation Loss</span>
+          <i class="fa-solid fa-triangle-exclamation text-amber-500 text-base"></i>
+        </div>
+        <div class="mt-3">
+          <div class="text-2xl font-bold text-rose-600" id="kpi-lost-margin">₹0</div>
+          <div class="text-xs text-slate-500 mt-1">
+            Lost margin from <strong id="kpi-false-cancels" class="text-slate-800">0</strong> genuine buyer drop-offs
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-slate-600 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-100 flex items-center justify-between">
+          <span>False Cancel Ratio:</span>
+          <span class="text-xs font-medium text-slate-700">4.15x cost of 1 RTO</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Prepaid Conversions & Discounts -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
+        <div class="flex items-center justify-between text-slate-500 text-xs font-semibold uppercase tracking-wider">
+          <span>Prepaid UPI Conversions</span>
+          <i class="fa-solid fa-bolt text-purple-500 text-base"></i>
+        </div>
+        <div class="mt-3">
+          <div class="text-2xl font-bold text-purple-600" id="kpi-prepaid-conversions">0</div>
+          <div class="text-xs text-slate-500 mt-1">
+            Converted to 4% RTO prepaid via ₹50 discount
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-purple-700 bg-purple-50 px-2.5 py-1.5 rounded-lg border border-purple-100 flex items-center justify-between">
+          <span>Discount Cost:</span>
+          <strong id="kpi-discounts-incurred">₹0</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Charts & Visual Breakdown Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Chart 1: Action Buckets -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+        <h3 class="text-sm font-bold text-slate-900 mb-1 flex items-center justify-between">
+          <span>Decision Bucket Distribution</span>
+          <span class="text-xs font-normal text-slate-500">Live Engine</span>
+        </h3>
+        <p class="text-xs text-slate-500 mb-4">Volume classified across the 4 decision paths</p>
+        <div class="relative h-56 flex items-center justify-center">
+          <canvas id="bucketsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: State-by-State RTO Risk -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+        <h3 class="text-sm font-bold text-slate-900 mb-1 flex items-center justify-between">
+          <span>Top States RTO Risk Profile</span>
+          <span class="text-xs font-normal text-slate-500">Historical RTO %</span>
+        </h3>
+        <p class="text-xs text-slate-500 mb-4">Highlighting Bihar (53%) & UP (45%) vulnerability</p>
+        <div class="relative h-56">
+          <canvas id="statesChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 3: Financial Economics Waterfall -->
+      <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+        <h3 class="text-sm font-bold text-slate-900 mb-1 flex items-center justify-between">
+          <span>Rupee (₹) Impact Breakdown</span>
+          <span class="text-xs font-normal text-slate-500">Net Economics</span>
+        </h3>
+        <p class="text-xs text-slate-500 mb-4">Gross Savings vs Lost Margin vs Net Gain</p>
+        <div class="relative h-56">
+          <canvas id="financeChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Orders Table & WhatsApp Simulator Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Left: Order Explorer (8 cols) -->
+      <div class="lg:col-span-7 bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
+        <div class="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50">
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">COD Orders Intelligence Feed</h3>
+            <p class="text-xs text-slate-500">Click any order to inspect LLM address analysis or test WhatsApp flow</p>
+          </div>
+
+          <!-- Table Filters -->
+          <div class="flex items-center space-x-2">
+            <input type="text" id="order-search" oninput="filterOrdersTable()" placeholder="Search name, phone, city..." class="px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-slate-400 w-48">
+            <select id="action-filter" onchange="filterOrdersTable()" class="px-2.5 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-slate-400">
+              <option value="ALL">All Actions</option>
+              <option value="Ship as-is">Ship as-is</option>
+              <option value="Ship after confirmation">Ship after confirmation</option>
+              <option value="Nudge to prepaid">Nudge to prepaid</option>
+              <option value="Hold / cancel">Hold / cancel</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-100 text-slate-600 uppercase tracking-wider text-[10px] sticky top-0 z-10">
+              <tr>
+                <th class="p-3 font-semibold">Order</th>
+                <th class="p-3 font-semibold">Customer & Address</th>
+                <th class="p-3 font-semibold">Amount</th>
+                <th class="p-3 font-semibold">Engine Action</th>
+                <th class="p-3 font-semibold">Risk</th>
+                <th class="p-3 font-semibold text-right">Simulate</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody" class="divide-y divide-slate-100">
+              <!-- Dynamically Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right: Interactive WhatsApp Simulator (5 cols) -->
+      <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col overflow-hidden">
+        
+        <!-- Simulator Header -->
+        <div class="p-4 bg-whatsapp-green text-white flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm">
+              <i class="fa-brands fa-whatsapp text-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm leading-tight flex items-center">
+                <span>WhatsApp Flow Simulator</span>
+                <span class="ml-2 text-[10px] bg-white/20 px-1.5 py-0.5 rounded text-emerald-100 uppercase font-semibold">Interactive Mock</span>
+              </h4>
+              <p class="text-[11px] text-emerald-100" id="sim-order-info">Selected: KT100193 · Lakshmi Shaikh</p>
+            </div>
+          </div>
+
+          <!-- Language Selector -->
+          <div class="flex items-center space-x-1 text-xs">
+            <button onclick="setSimulatorLang('hinglish')" id="sim-lang-hinglish" class="px-2 py-0.5 rounded bg-white text-emerald-800 font-bold text-[10px]">Hinglish</button>
+            <button onclick="setSimulatorLang('english')" id="sim-lang-english" class="px-2 py-0.5 rounded bg-emerald-700 text-emerald-100 font-medium text-[10px]">English</button>
+          </div>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div id="chat-messages" class="p-4 bg-whatsapp-chat flex-1 overflow-y-auto space-y-3 min-h-[380px] max-h-[380px]">
+          <!-- Chat messages rendered dynamically -->
+        </div>
+
+        <!-- Simulator Action / Quick Reply Bar -->
+        <div class="p-3 bg-slate-50 border-t border-slate-200 space-y-2">
+          <div class="text-[11px] text-slate-500 font-semibold flex items-center justify-between">
+            <span>Quick Customer Actions:</span>
+            <span id="sim-session-state" class="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-medium">AWAITING_REPLY</span>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button onclick="sendSimMessage('1')" class="px-2 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-medium transition text-center shadow-sm">
+              <i class="fa-solid fa-check mr-1"></i> Reply 1 (Yes)
+            </button>
+            <button onclick="sendSimMessage('2')" class="px-2 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded text-xs font-medium transition text-center shadow-sm">
+              <i class="fa-solid fa-xmark mr-1"></i> Reply 2 (No)
+            </button>
+            <button onclick="sendSimMessage('Paid via UPI')" class="px-2 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded text-xs font-medium transition text-center shadow-sm">
+              <i class="fa-solid fa-credit-card mr-1"></i> Paid ₹-50
+            </button>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button onclick="sendSimMessage('Flat 402, Opp SBI Bank, MG Road')" class="px-2 py-1 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded text-[11px] font-medium transition text-center truncate">
+              Update Address
+            </button>
+            <button onclick="sendSimMessage('Kab tak aayega parcel?')" class="px-2 py-1 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded text-[11px] font-medium transition text-center truncate">
+              Ask "When delivery?"
+            </button>
+            <button onclick="triggerSimTimer('24h_auto_cancel')" class="px-2 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded text-[11px] font-medium transition text-center truncate">
+              +24h No Reply
+            </button>
+          </div>
+
+          <!-- Custom Message Input -->
+          <div class="flex items-center space-x-2 pt-1">
+            <input type="text" id="sim-custom-input" onkeydown="if(event.key==='Enter') sendCustomMessage()" placeholder="Type custom customer reply (e.g. 'kal bhejna')..." class="flex-1 px-3 py-1.5 text-xs bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            <button onclick="sendCustomMessage()" class="px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition text-xs font-medium">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Threshold Configuration Modal -->
+  <div id="config-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden animate-fade-in">
+      <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Operational Decision Thresholds</h3>
+          <p class="text-xs text-slate-500">Adjust parameters without touching code. Recalculates ₹ impact live.</p>
+        </div>
+        <button onclick="toggleConfigModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">High-Risk States Minimum Order Value for Prepaid Nudge (₹)</label>
+          <input type="number" id="cfg-nudge-state-val" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-slate-500 text-xs">
+          <p class="text-[11px] text-slate-500 mt-1">Orders in Bihar, UP, MP above this value receive the ₹50 prepaid discount nudge.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">General Minimum Order Value for Prepaid Nudge (₹)</label>
+          <input type="number" id="cfg-nudge-general-val" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-slate-500 text-xs">
+          <p class="text-[11px] text-slate-500 mt-1">High-ticket orders across all states nudged to prepaid to reduce cash liability.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Chronic Prior RTO Threshold for Hold / Cancel</label>
+          <input type="number" id="cfg-cancel-prior-rto" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-slate-500 text-xs">
+          <p class="text-[11px] text-slate-500 mt-1">Customers with this many or more previous RTOs are held/cancelled.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Short Address Length Threshold (Characters)</label>
+          <input type="number" id="cfg-short-addr-len" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-slate-500 text-xs">
+          <p class="text-[11px] text-slate-500 mt-1">Addresses shorter than this trigger WhatsApp address re-verification.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Prepaid Discount Amount (₹)</label>
+          <input type="number" id="cfg-prepaid-discount" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-slate-500 text-xs">
+          <p class="text-[11px] text-slate-500 mt-1">Discount offered to convert COD into 4% RTO prepaid.</p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-end space-x-3">
+        <button onclick="toggleConfigModal()" class="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-800">Cancel</button>
+        <button onclick="saveThresholds()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold shadow-sm">
+          Save & Recalculate Simulation
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard JavaScript File -->
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

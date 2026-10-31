@@ -1,0 +1,13 @@
+{
+  "order_id": "TEST_003",
+  "customer_name": "Pooja Verma",
+  "phone": "9812345678",
+  "address": "House No 44, Gandhi Nagar, Near Main Market",
+  "city": "Patna",
+  "state": "Bihar",
+  "pincode": 800001,
+  "order_value": 1798,
+  "customer_prior_orders": 0,
+  "customer_prior_rto": 0,
+  "items": "Hair Oil 100ml|Rice Water Shampoo Bar|Satin Bonnet"
+}

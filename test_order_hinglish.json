@@ -1,0 +1,13 @@
+{
+  "order_id": "TEST_002",
+  "customer_name": "Meera Sharma",
+  "phone": "9812345678",
+  "address": "Link chowk se left, SBI Bank ke saamne",
+  "city": "Indore",
+  "state": "Madhya Pradesh",
+  "pincode": 452026,
+  "order_value": 649,
+  "customer_prior_orders": 0,
+  "customer_prior_rto": 0,
+  "items": "Rice Water Shampoo Bar"
+}
